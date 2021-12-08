@@ -25,7 +25,7 @@ class Game
 
   def play
     print '| '
-    box.getTiles().each do |tile|
+    box.tiles().each do |tile|
       print tile.to_s + ' | '
     end
     print "\n"
