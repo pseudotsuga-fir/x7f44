@@ -10,37 +10,42 @@ class Game
     @box = box
     @dice = dice
   end
-
-  def over?
-    box.shut? || box.can_flip_for?(dice.map(&:value).reduce(:+))
-  end
-
-  def start!
-    prepare_next_round
-  end
-
-  def prepare_next_round
+  
+  def roll_dice
     dice.each(&:roll!)
   end
 
-  def play
-    print '| '
+  def add_dice
+    dice.map(&:value).reduce(:+)
+  end
+
+  def over?
+    box.shut? || box.can_flip_for?(self.add_dice)
+  end
+
+  def print_tiles
     box.tiles().each do |tile|
-      print tile.to_s + ' | '
+      print ' |' + tile.to_s + '| '
     end
-    print "\n"
-    print "You rolled: "
+  end
+
+  def print_dice_values
     dice.each do |die|
       print "#{die.value} "
     end
-    puts "\n"
-    puts "Which tiles would you like to flip (separate by spaces): "
-    tiles_to_flip = gets.chomp
-    prepare_next_round
   end
 
-  def results
-    box.shut? ? WIN_MESSAGE : LOSE_MESSAGE
+  def play
+    self.print_tiles
+    print "\nYou rolled: "
+    self.print_dice_values
+    puts "\nWhich tiles would you like to flip (separate by spaces): "
+    tiles_to_flip = gets.chomp
+    self.roll_dice
+  end
+
+  def get_result_messsage
+    self.over? ? WIN_MESSAGE : LOSE_MESSAGE
   end
 
 end
