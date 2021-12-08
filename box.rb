@@ -7,7 +7,7 @@ class Box
   end
 
   def shut?
-    @tiles.all?(false)
+    @tiles.all? {|tile| tile.flipped}
   end
 
   def can_flip_for?(value)

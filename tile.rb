@@ -7,7 +7,7 @@ class Tile
         @flipped = false
     end
 
-    def flip
+    def flip!
         @flipped = !@flipped
     end
 

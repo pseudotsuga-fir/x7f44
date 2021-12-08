@@ -15,12 +15,12 @@ class Game
     dice.each(&:roll!)
   end
 
-  def add_dice
+  def sum_dice
     dice.map(&:value).reduce(:+)
   end
 
   def over?
-    box.shut? || box.can_flip_for?(self.add_dice)
+    box.shut? || box.can_flip_for?(self.sum_dice)
   end
 
   def print_tiles
